@@ -16,7 +16,7 @@
 ```bash
 # 克隆项目
 git clone <repo-url>
-cd copilot-debugger
+cd context-viewer
 
 # 安装依赖
 npm install
@@ -44,7 +44,7 @@ npm run watch
 ## 2. 项目结构
 
 ```
-copilot-debugger/
+context-viewer/
 ├── package.json              # 扩展清单（最重要的配置文件）
 ├── tsconfig.json             # TypeScript 配置
 ├── .vscodeignore             # VSIX 打包排除规则
@@ -474,7 +474,7 @@ npx vsce publish major
 
 ```json
 "chatParticipants": [{
-  "id": "copilot-debugger.debug",
+  "id": "context-viewer.debug",
   "fullName": "Copilot Debugger",
   "name": "debug",
   "description": "Proxy chat participant that forwards to Copilot and logs full input/output prompts",
@@ -489,7 +489,7 @@ npx vsce publish major
 ```json
 "viewsContainers": {
   "activitybar": [{
-    "id": "copilot-debugger",
+    "id": "context-viewer",
     "title": "Copilot Debugger",
     "icon": "resources/icon.svg"
   }]
@@ -563,7 +563,7 @@ if (typeof chatNs.onDidPerformAction === 'function') { ... }
 
 ```json
 "chatParticipants": [{
-  "id": "copilot-debugger.debug",
+  "id": "context-viewer.debug",
   "name": "debug",
   ...
 }]

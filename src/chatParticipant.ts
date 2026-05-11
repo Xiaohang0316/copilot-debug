@@ -17,7 +17,7 @@ export class DebugChatParticipant implements vscode.Disposable {
 
   constructor(private store: SessionStore) {
     this.participant = vscode.chat.createChatParticipant(
-      'copilot-debugger.debug',
+      'context-viewer.debug',
       this.handleRequest.bind(this),
     );
     this.participant.iconPath = new vscode.ThemeIcon('bug');

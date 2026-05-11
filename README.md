@@ -23,7 +23,7 @@
 ### 从 VSIX 文件安装
 
 ```bash
-code --install-extension copilot-debugger-0.1.0.vsix
+code --install-extension context-viewer-0.1.0.vsix
 ```
 
 或在 VS Code 中：`Cmd+Shift+P` → `Extensions: Install from VSIX...` → 选择 `.vsix` 文件。
@@ -32,7 +32,7 @@ code --install-extension copilot-debugger-0.1.0.vsix
 
 ```bash
 git clone <repo-url>
-cd copilot-debugger
+cd context-viewer
 npm install
 npm run compile
 ```

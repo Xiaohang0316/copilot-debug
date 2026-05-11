@@ -399,7 +399,7 @@ STATISTICS
 ## 7. 文件结构
 
 ```
-copilot-debugger/
+context-viewer/
 ├── package.json              # 扩展清单：命令、视图、菜单、chatParticipants
 ├── tsconfig.json             # TypeScript 编译配置
 ├── .vscodeignore             # 打包排除规则

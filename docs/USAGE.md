@@ -5,19 +5,19 @@
 ### 从 VSIX 文件安装
 
 ```bash
-code --install-extension copilot-debugger-0.1.0.vsix
+code --install-extension context-viewer-0.1.0.vsix
 ```
 
 或在 VS Code 中：
 1. 打开命令面板 (`Cmd+Shift+P` / `Ctrl+Shift+P`)
 2. 输入 `Extensions: Install from VSIX...`
-3. 选择 `copilot-debugger-0.1.0.vsix` 文件
+3. 选择 `context-viewer-0.1.0.vsix` 文件
 
 ### 从源码安装
 
 ```bash
 git clone <repo-url>
-cd copilot-debugger
+cd context-viewer
 npm install
 npm run compile
 # 然后按 F5 启动扩展开发宿主窗口

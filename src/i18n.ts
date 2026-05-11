@@ -15,10 +15,10 @@ const zhCn: Record<string, string> = {
   'session.log_watch': '日志监控会话',
 
   // Capture
-  'capture.started': 'Copilot 调试器: 捕获已开始。在聊天中使用 @debug 来捕获完整提示词。',
-  'capture.stopped': 'Copilot 调试器: 捕获已停止',
-  'capture.log_started': 'Copilot 调试器: 日志文件监控已开始',
-  'capture.log_stopped': 'Copilot 调试器: 日志文件监控已停止',
+  'capture.started': '上下文查看器: 捕获已开始。在聊天中使用 @debug 来捕获完整提示词。',
+  'capture.stopped': '上下文查看器: 捕获已停止',
+  'capture.log_started': '上下文查看器: 日志文件监控已开始',
+  'capture.log_stopped': '上下文查看器: 日志文件监控已停止',
 
   // Clear
   'clear.confirm': '确定清除所有已捕获的会话？',
@@ -35,7 +35,7 @@ const zhCn: Record<string, string> = {
   'import.log_done': '从日志中导入了 {0} 个步骤',
 
   // Status bar
-  'statusbar.idle': 'Copilot 调试器',
+  'statusbar.idle': '上下文查看器',
   'statusbar.idle_tooltip': '点击开始捕获 Copilot 交互',
   'statusbar.capturing_tooltip': '捕获中... 点击停止。在聊天中使用 @debug 记录完整提示词。',
 
@@ -86,7 +86,7 @@ const zhCn: Record<string, string> = {
   'chat.debug_summary': '调试: {0} 输入 tok | {1} 输出 tok | {2}ms | 模型: {3}',
 
   // Log watcher
-  'logwatch.no_paths': 'Copilot 调试器: 未找到 Copilot 日志文件。请确保 GitHub Copilot/Copilot Chat 已安装。',
+  'logwatch.no_paths': '上下文查看器: 未找到 Copilot 日志文件。请确保 GitHub Copilot/Copilot Chat 已安装。',
 };
 
 const en: Record<string, string> = {

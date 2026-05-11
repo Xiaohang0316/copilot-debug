@@ -1,15 +1,19 @@
 {
-  "name": "copilot-debugger",
+  "name": "context-viewer",
   "displayName": "%displayName%",
   "description": "%description%",
-  "version": "0.1.0",
-  "publisher": "xiaohang",
+  "version": "0.1.1",
+  "publisher": "HuaKaiFuGui",
   "engines": {
     "vscode": "^1.95.0"
   },
   "categories": [
     "Other"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Xiaohang0316/copilot-debug.git"
+  },
   "activationEvents": [
     "onStartupFinished"
   ],
@@ -17,7 +21,7 @@
   "contributes": {
     "chatParticipants": [
       {
-        "id": "copilot-debugger.debug",
+        "id": "context-viewer.debug",
         "fullName": "Copilot Debugger",
         "name": "debug",
         "description": "%chatParticipant.debug.description%",
@@ -27,14 +31,14 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "copilot-debugger",
+          "id": "context-viewer",
           "title": "%viewsContainer.title%",
           "icon": "resources/icon.svg"
         }
       ]
     },
     "views": {
-      "copilot-debugger": [
+      "context-viewer": [
         {
           "id": "copilotDebugger.sessions",
           "name": "%view.sessions.name%"
