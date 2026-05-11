@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Copilot Debugger** is a VS Code extension that monitors and debugs GitHub Copilot Agent execution in real time. It captures input/output prompts, tracks context window size, detects prompt compression events, and visualizes execution steps in a timeline. The project is written in TypeScript, targets VS Code >= 1.95.0, and has zero runtime dependencies.
+**Context Viewer** is a VS Code extension that monitors and debugs GitHub Copilot Agent execution in real time. It captures input/output prompts, tracks context window size, detects prompt compression events, and visualizes execution steps in a timeline. The project is written in TypeScript, targets VS Code >= 1.95.0, and has zero runtime dependencies.
 
 ## Build & Development Commands
 
@@ -12,11 +12,30 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run compile       # One-time TypeScript compilation (tsc -p ./)
 npm run watch         # Continuous compilation with file watching
 npm run package       # Compile + package into .vsix (uses vsce)
+npm test              # Compile + run all unit tests (mocha)
 ```
 
 To test locally: run `npm run watch`, then press **F5** in VS Code to launch an Extension Development Host window. After code changes, reload the dev host with `Cmd+Shift+P` → `Developer: Reload Window`.
 
-There is no test framework set up yet — no `npm test` command exists.
+## Testing
+
+Unit tests use **Mocha** with a custom vscode mock (`src/test/mock/vscode.ts`). Tests run outside VS Code via `node run-tests.js`, which registers the mock before loading test files.
+
+Test structure mirrors the source tree:
+
+| Test file | Covers |
+|-----------|--------|
+| `sessionStore.test.ts` | Session CRUD, stats computation, event emission |
+| `interceptor.test.ts` | Log line parsing (7 regex patterns), capture lifecycle, manual steps |
+| `logWatcher.test.ts` | All 15 log patterns, metadata extraction |
+| `i18n.test.ts` | Translation lookup, placeholder substitution, key completeness |
+| `types.test.ts` | Interface structure validation |
+| `views/sessionTreeProvider.test.ts` | Tree items, icons, tooltips, commands |
+| `views/stepTreeProvider.test.ts` | All 8 StepType icons, description formatting |
+| `views/statsTreeProvider.test.ts` | Stat categories, nested children, tool calls section |
+| `views/detailPanel.test.ts` | HTML generation, XSS escaping, edge cases |
+
+To add a new test: create `src/test/<module>.test.ts`, import from source as usual — the vscode mock is auto-registered.
 
 ## Architecture
 

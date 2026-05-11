@@ -96,10 +96,10 @@ const en: Record<string, string> = {
   'session.debug_chat': '@debug Chat Session',
   'session.log_watch': 'Log Watch Session',
 
-  'capture.started': 'Copilot Debugger: Capture started. Use @debug in Chat to capture full prompts.',
-  'capture.stopped': 'Copilot Debugger: Capture stopped',
-  'capture.log_started': 'Copilot Debugger: Log file monitoring started',
-  'capture.log_stopped': 'Copilot Debugger: Log file monitoring stopped',
+  'capture.started': 'Context Viewer: Capture started. Use @debug in Chat to capture full prompts.',
+  'capture.stopped': 'Context Viewer: Capture stopped',
+  'capture.log_started': 'Context Viewer: Log file monitoring started',
+  'capture.log_stopped': 'Context Viewer: Log file monitoring stopped',
 
   'clear.confirm': 'Clear all captured sessions?',
   'clear.button': 'Clear',
@@ -112,7 +112,7 @@ const en: Record<string, string> = {
   'import.steps_done': 'Imported {0} steps',
   'import.log_done': 'Imported {0} steps from log',
 
-  'statusbar.idle': 'Copilot Debugger',
+  'statusbar.idle': 'Context Viewer',
   'statusbar.idle_tooltip': 'Click to start capturing Copilot interactions',
   'statusbar.capturing_tooltip': 'Capturing... Click to stop. Use @debug in Chat for full prompt logging.',
 
@@ -158,7 +158,7 @@ const en: Record<string, string> = {
   'chat.no_model': '*No Copilot language model available. Make sure GitHub Copilot is installed and signed in.*',
   'chat.debug_summary': 'Debug: {0} input tok | {1} output tok | {2}ms | model: {3}',
 
-  'logwatch.no_paths': 'Copilot Debugger: No Copilot log files found. Make sure GitHub Copilot/Copilot Chat is installed.',
+  'logwatch.no_paths': 'Context Viewer: No Copilot log files found. Make sure GitHub Copilot/Copilot Chat is installed.',
 };
 
 let currentBundle: Record<string, string> = en;

@@ -1,17 +1,17 @@
-# Copilot Debugger - 使用指南
+# Context Viewer - 使用指南
 
 ## 1. 安装
 
 ### 从 VSIX 文件安装
 
 ```bash
-code --install-extension context-viewer-0.1.0.vsix
+code --install-extension context-viewer-0.1.3.vsix
 ```
 
 或在 VS Code 中：
 1. 打开命令面板 (`Cmd+Shift+P` / `Ctrl+Shift+P`)
 2. 输入 `Extensions: Install from VSIX...`
-3. 选择 `context-viewer-0.1.0.vsix` 文件
+3. 选择 `context-viewer-0.1.3.vsix` 文件
 
 ### 从源码安装
 
@@ -32,9 +32,9 @@ npm run compile
 
 ## 2. 快速开始
 
-### 2.1 打开 Copilot Debugger 面板
+### 2.1 打开 Context Viewer 面板
 
-安装后，VS Code 左侧活动栏会出现 Copilot Debugger 图标（铅笔+加号图标）。点击它打开侧边栏，包含三个视图：
+安装后，VS Code 左侧活动栏会出现 Context Viewer 图标（铅笔+加号图标）。点击它打开侧边栏，包含三个视图：
 
 - **Sessions** — 捕获会话列表
 - **Execution Steps** — 当前会话的步骤时间线
@@ -45,13 +45,13 @@ npm run compile
 有三种方式开始捕获 Copilot 交互：
 
 **方式 1：状态栏**
-> 点击右下角状态栏的 `Copilot Debugger` 按钮
+> 点击右下角状态栏的 `Context Viewer` 按钮
 
 **方式 2：视图按钮**
 > 在 Sessions 视图标题栏点击红色录制按钮 `●`
 
 **方式 3：命令面板**
-> `Cmd+Shift+P` → 输入 `Copilot Debugger: Start Capture`
+> `Cmd+Shift+P` → 输入 `Context Viewer: Start Capture`
 
 开始捕获后：
 - 状态栏变为橙色背景，实时显示步骤数和 token 消耗
@@ -83,7 +83,7 @@ npm run compile
 #### 模式 B：日志文件监控（被动，不改变工作习惯）
 
 - Start Capture 时自动启动
-- 也可单独开启：`Copilot Debugger: Start Log File Monitoring`
+- 也可单独开启：`Context Viewer: Start Log File Monitoring`
 - 监控 Copilot 扩展写入磁盘的日志文件
 - 自动解析：API 请求/响应、`prompt_tokens`/`completion_tokens`、`tool_call`、压缩事件
 
@@ -131,7 +131,7 @@ npm run compile
 
 - 点击状态栏（录制中状态）
 - Sessions 视图标题栏的停止按钮 `■`
-- 命令面板 → `Copilot Debugger: Stop Capture`
+- 命令面板 → `Context Viewer: Stop Capture`
 
 ---
 
@@ -174,7 +174,7 @@ Statistics 视图分为四个组：
 
 将完整会话数据导出为 JSON 文件，用于离线分析或团队共享：
 
-1. 命令面板 → `Copilot Debugger: Export Session as JSON`
+1. 命令面板 → `Context Viewer: Export Session as JSON`
 2. 在弹出的列表中选择要导出的会话
 3. 选择保存路径
 
@@ -184,7 +184,7 @@ Statistics 视图分为四个组：
 
 支持导入两种格式进行离线分析：
 
-1. 命令面板 → `Copilot Debugger: Import Log`
+1. 命令面板 → `Context Viewer: Import Log`
 2. 选择文件（支持 `.json`、`.log`、`.txt`）
 
 **JSON 格式**：包含 `steps` 数组的 JSON 文件（如之前导出的文件）
@@ -200,7 +200,7 @@ Statistics 视图分为四个组：
 
 ### 3.6 清除会话
 
-命令面板 → `Copilot Debugger: Clear All Sessions`
+命令面板 → `Context Viewer: Clear All Sessions`
 
 会弹出确认对话框，确认后清除所有会话数据。如果正在录制，会自动停止。
 
@@ -210,14 +210,14 @@ Statistics 视图分为四个组：
 
 | 操作 | 命令面板输入 | 快捷触发 |
 |------|-------------|---------|
-| 开始捕获 | `Copilot Debugger: Start Capture` | 点击状态栏 / Sessions 标题栏 `●` |
-| 停止捕获 | `Copilot Debugger: Stop Capture` | 点击状态栏 / Sessions 标题栏 `■` |
-| 开始日志监控 | `Copilot Debugger: Start Log File Monitoring` | — |
-| 停止日志监控 | `Copilot Debugger: Stop Log File Monitoring` | — |
-| 清除会话 | `Copilot Debugger: Clear All Sessions` | Sessions 标题栏 `✕` |
-| 导出 JSON | `Copilot Debugger: Export Session as JSON` | — |
-| 导入日志 | `Copilot Debugger: Import Log` | — |
-| 刷新视图 | `Copilot Debugger: Refresh` | Steps 标题栏 `↻` |
+| 开始捕获 | `Context Viewer: Start Capture` | 点击状态栏 / Sessions 标题栏 `●` |
+| 停止捕获 | `Context Viewer: Stop Capture` | 点击状态栏 / Sessions 标题栏 `■` |
+| 开始日志监控 | `Context Viewer: Start Log File Monitoring` | — |
+| 停止日志监控 | `Context Viewer: Stop Log File Monitoring` | — |
+| 清除会话 | `Context Viewer: Clear All Sessions` | Sessions 标题栏 `✕` |
+| 导出 JSON | `Context Viewer: Export Session as JSON` | — |
+| 导入日志 | `Context Viewer: Import Log` | — |
+| 刷新视图 | `Context Viewer: Refresh` | Steps 标题栏 `↻` |
 | @debug 对话 | 在 Chat 中输入 `@debug 你的问题` | — |
 
 ---
@@ -262,10 +262,10 @@ Statistics 视图分为四个组：
 
 ## 6. 输出通道
 
-扩展在 VS Code 的 Output 面板注册了 `Copilot Debugger` 通道，记录所有捕获事件的原始日志：
+扩展在 VS Code 的 Output 面板注册了 `Context Viewer` 通道，记录所有捕获事件的原始日志：
 
 ```
-查看方式：View → Output → 选择 "Copilot Debugger"
+查看方式：View → Output → 选择 "Context Viewer"
 ```
 
 日志格式：

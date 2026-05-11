@@ -1,4 +1,4 @@
-# Copilot Debugger
+# Context Viewer
 
 监控和调试 GitHub Copilot Agent 的执行过程 — 追踪输入输出、上下文大小、提示词压缩和逐步执行。
 
@@ -23,7 +23,7 @@
 ### 从 VSIX 文件安装
 
 ```bash
-code --install-extension context-viewer-0.1.0.vsix
+code --install-extension context-viewer-0.1.3.vsix
 ```
 
 或在 VS Code 中：`Cmd+Shift+P` → `Extensions: Install from VSIX...` → 选择 `.vsix` 文件。
@@ -41,7 +41,7 @@ npm run compile
 
 ## 快速开始
 
-1. 点击左侧活动栏的 **Copilot Debugger** 图标，打开侧边栏
+1. 点击左侧活动栏的 **Context Viewer** 图标，打开侧边栏
 2. 点击 Sessions 视图标题栏的 **录制按钮** `●` 开始捕获
 3. 使用 Copilot 进行交互（推荐在 Chat 中使用 `@debug` 前缀获取最完整的数据）
 4. 在 **Execution Steps** 视图中查看每个步骤的详情
@@ -61,14 +61,14 @@ npm run compile
 
 | 命令 | 快捷触发 |
 |------|---------|
-| `Copilot Debugger: Start Capture` | 状态栏 / Sessions 标题栏 `●` |
-| `Copilot Debugger: Stop Capture` | 状态栏 / Sessions 标题栏 `■` |
-| `Copilot Debugger: Start Log File Monitoring` | — |
-| `Copilot Debugger: Stop Log File Monitoring` | — |
-| `Copilot Debugger: Clear All Sessions` | Sessions 标题栏 `✕` |
-| `Copilot Debugger: Export Session as JSON` | — |
-| `Copilot Debugger: Open Debug Chat` | `Cmd+Shift+D` / `Ctrl+Shift+D` |
-| `Copilot Debugger: Toggle Global Intercept Mode` | — |
+| `Context Viewer: Start Capture` | 状态栏 / Sessions 标题栏 `●` |
+| `Context Viewer: Stop Capture` | 状态栏 / Sessions 标题栏 `■` |
+| `Context Viewer: Start Log File Monitoring` | — |
+| `Context Viewer: Stop Log File Monitoring` | — |
+| `Context Viewer: Clear All Sessions` | Sessions 标题栏 `✕` |
+| `Context Viewer: Export Session as JSON` | — |
+| `Context Viewer: Open Debug Chat` | `Cmd+Shift+D` / `Ctrl+Shift+D` |
+| `Context Viewer: Toggle Global Intercept Mode` | — |
 
 ## 已知限制
 
@@ -77,11 +77,22 @@ npm run compile
 - 日志监控依赖 Copilot 扩展的日志格式，可能随版本更新变化
 - 会话数据存储在内存中，重启 VS Code 后丢失（可手动导出 JSON）
 
+## 开发与测试
+
+```bash
+npm run compile       # 编译
+npm run watch         # 持续编译
+npm test              # 编译 + 运行全部 236 个单元测试
+npm run package       # 打包 .vsix
+```
+
+测试使用 Mocha 框架，通过自定义 vscode mock 在 VS Code 外运行，覆盖 SessionStore、Interceptor、LogWatcher、i18n、所有 TreeProvider 和 DetailPanel。
+
 ## 文档
 
 - [设计文档](docs/DESIGN.md) — 系统架构、数据模型、技术决策
 - [使用指南](docs/USAGE.md) — 详细的功能说明和使用场景
-- [开发文档](docs/DEVELOPMENT.md) — 环境搭建、模块详解、扩展指南
+- [开发文档](docs/DEVELOPMENT.md) — 环境搭建、模块详解、测试、扩展指南
 
 ## License
 

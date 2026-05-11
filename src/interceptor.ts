@@ -16,7 +16,7 @@ export class CopilotInterceptor implements vscode.Disposable {
   private stepCounter = 0;
 
   constructor(private store: SessionStore) {
-    this.outputChannel = vscode.window.createOutputChannel('Copilot Debugger', { log: true });
+    this.outputChannel = vscode.window.createOutputChannel('Context Viewer', { log: true });
   }
 
   startCapture(): void {

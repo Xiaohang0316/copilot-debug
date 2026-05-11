@@ -1,4 +1,4 @@
-# Copilot Debugger - 开发文档
+# Context Viewer - 开发文档
 
 ## 1. 环境搭建
 
@@ -38,6 +38,8 @@ npm run watch
 | `@types/node` | Node.js 类型定义 |
 | `typescript` | TypeScript 编译器 |
 | `@vscode/vsce` | 扩展打包工具 |
+| `mocha` | 单元测试框架 |
+| `@types/mocha` | Mocha 类型定义 |
 
 ---
 
@@ -56,15 +58,31 @@ context-viewer/
 │   ├── interceptor.ts        # L3: 编辑器事件拦截
 │   ├── chatParticipant.ts    # L1: @debug Chat Participant 代理
 │   ├── logWatcher.ts         # L2: Copilot 日志文件监控
-│   └── views/                # 视图层
-│       ├── sessionTreeProvider.ts   # Sessions 列表视图
-│       ├── stepTreeProvider.ts      # Steps 时间线视图
-│       ├── statsTreeProvider.ts     # Statistics 统计视图
-│       └── detailPanel.ts          # Webview 详情面板
+│   ├── views/                # 视图层
+│   │   ├── sessionTreeProvider.ts   # Sessions 列表视图
+│   │   ├── stepTreeProvider.ts      # Steps 时间线视图
+│   │   ├── statsTreeProvider.ts     # Statistics 统计视图
+│   │   └── detailPanel.ts          # Webview 详情面板
+│   └── test/                 # 单元测试
+│       ├── mock/
+│       │   └── vscode.ts            # vscode 模块 mock
+│       ├── sessionStore.test.ts     # SessionStore 测试
+│       ├── interceptor.test.ts      # Interceptor 测试
+│       ├── logWatcher.test.ts       # LogWatcher 模式匹配测试
+│       ├── i18n.test.ts             # 国际化测试
+│       ├── types.test.ts            # 类型结构测试
+│       └── views/
+│           ├── sessionTreeProvider.test.ts
+│           ├── stepTreeProvider.test.ts
+│           ├── statsTreeProvider.test.ts
+│           └── detailPanel.test.ts
 │
+├── run-tests.js              # 测试运行器（注册 vscode mock + 启动 mocha）
 ├── out/                      # 编译产物（git ignore）
 ├── resources/                # 静态资源
-│   └── icon.svg              # 活动栏图标
+│   ├── icon.svg              # 活动栏图标
+│   ├── marketplace-icon.svg  # 插件市场图标（矢量源文件）
+│   └── marketplace-icon.png  # 插件市场图标（256x256 PNG）
 │
 └── docs/                     # 文档
     ├── DESIGN.md
@@ -325,7 +343,42 @@ npm run watch
 
 开发时，扩展的 `console.log` 输出在 Extension Development Host 的 Debug Console 中可见。
 
-捕获事件日志在 Output 面板的 `Copilot Debugger` 通道中查看。
+捕获事件日志在 Output 面板的 `Context Viewer` 通道中查看。
+
+### 4.3 运行测试
+
+```bash
+# 编译 + 运行全部测试
+npm test
+
+# 只编译
+npm run compile
+
+# 只运行测试（已编译的情况下）
+node run-tests.js
+```
+
+**测试架构：**
+
+由于 VS Code 扩展的源码依赖 `vscode` 模块（只在 Extension Host 中可用），单元测试使用自定义 mock 替代：
+
+1. `src/test/mock/vscode.ts` — 实现了 `EventEmitter`、`TreeItem`、`ThemeIcon`、`MarkdownString` 等测试所需的 VS Code API
+2. `run-tests.js` — 在加载测试文件前，通过 Node.js 的 `Module._resolveFilename` hook 将 `require('vscode')` 重定向到 mock 模块
+3. 测试文件可以正常 `import * as vscode from 'vscode'` 和导入源码模块
+
+**测试覆盖范围（236 个测试）：**
+
+| 测试文件 | 覆盖内容 | 测试数 |
+|----------|---------|-------|
+| `sessionStore.test.ts` | 会话 CRUD、token 累计、统计计算、事件触发 | 30 |
+| `interceptor.test.ts` | 7 种日志行解析、捕获生命周期、手动步骤注入 | 24 |
+| `logWatcher.test.ts` | 15 种正则模式匹配、元数据提取（token/model/tool） | 22 |
+| `i18n.test.ts` | 翻译查找、占位符替换、所有 i18n key 完整性验证 | 57 |
+| `types.test.ts` | 接口结构验证、可选字段、索引签名 | 8 |
+| `views/sessionTreeProvider.test.ts` | 会话树子项生成、图标、tooltip、命令注册 | 16 |
+| `views/stepTreeProvider.test.ts` | 全部 8 种 StepType 图标、描述格式、tooltip 截断 | 22 |
+| `views/statsTreeProvider.test.ts` | 统计分类节点、嵌套子项、工具调用分区 | 12 |
+| `views/detailPanel.test.ts` | HTML 生成、XSS 转义、压缩信息、边界值、dispose | 14 |
 
 ---
 
@@ -440,8 +493,10 @@ npx vsce publish
 
 - [ ] `package.json` 中 `version` 已更新
 - [ ] `package.json` 中 `publisher` 填写正确
+- [ ] `package.json` 中 `icon` 指向市场图标 (`resources/marketplace-icon.png`)
 - [ ] 编译无错误 (`npm run compile`)
-- [ ] 功能测试通过
+- [ ] 全部单元测试通过 (`npm test`)
+- [ ] 功能测试通过（F5 启动 Extension Development Host）
 - [ ] 添加了 `LICENSE` 文件
 - [ ] 添加了 `README.md`（作为 Marketplace 页面展示）
 
@@ -475,7 +530,7 @@ npx vsce publish major
 ```json
 "chatParticipants": [{
   "id": "context-viewer.debug",
-  "fullName": "Copilot Debugger",
+  "fullName": "Context Viewer",
   "name": "debug",
   "description": "Proxy chat participant that forwards to Copilot and logs full input/output prompts",
   "isSticky": false
@@ -490,7 +545,7 @@ npx vsce publish major
 "viewsContainers": {
   "activitybar": [{
     "id": "context-viewer",
-    "title": "Copilot Debugger",
+    "title": "Context Viewer",
     "icon": "resources/icon.svg"
   }]
 }
@@ -541,21 +596,20 @@ if (typeof chatNs.onDidPerformAction === 'function') { ... }
 "enabledApiProposals": ["chatParticipantAdditions"]
 ```
 
-### Q: 如何添加单元测试
+### Q: 如何运行单元测试
 
-1. 安装测试依赖：
-   ```bash
-   npm install --save-dev @vscode/test-electron mocha @types/mocha
-   ```
+```bash
+npm test
+```
 
-2. 创建 `src/test/` 目录，添加测试文件
+此命令会先编译 TypeScript，然后通过 `run-tests.js` 启动 Mocha 运行所有测试。测试使用自定义的 vscode 模块 mock（`src/test/mock/vscode.ts`），无需启动 VS Code 即可运行。
 
-3. 在 `package.json` 中添加测试脚本：
-   ```json
-   "test": "vscode-test"
-   ```
+### Q: 如何添加新的测试
 
-4. `SessionStore` 和 token 估算等纯逻辑可以用常规单元测试覆盖
+1. 在 `src/test/` 下创建 `<module>.test.ts` 文件
+2. 正常导入源码模块（`import ... from '../<module>'`），vscode mock 会自动注册
+3. 使用 `import * as assert from 'assert'` 编写断言
+4. 运行 `npm test` 验证
 
 ### Q: `@debug` 在 Chat 中不显示
 
@@ -569,7 +623,7 @@ if (typeof chatNs.onDidPerformAction === 'function') { ... }
 }]
 ```
 
-同时确保扩展已激活（检查 Output 面板中是否有 `Copilot Debugger extension activated` 日志）。
+同时确保扩展已激活（检查 Output 面板中是否有 `Context Viewer extension activated` 日志）。
 
 ### Q: `@debug` 提示 "No Copilot language model available"
 

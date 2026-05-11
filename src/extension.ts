@@ -210,7 +210,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
   });
 
-  console.log('Copilot Debugger extension activated');
+  console.log('Context Viewer extension activated');
 }
 
 export function deactivate() {}

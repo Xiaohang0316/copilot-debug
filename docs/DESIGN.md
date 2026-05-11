@@ -1,8 +1,8 @@
-# Copilot Debugger - 设计文档
+# Context Viewer - 设计文档
 
 ## 1. 项目概述
 
-**Copilot Debugger** 是一个 VS Code 扩展，用于实时监控和调试 GitHub Copilot Agent 的执行过程。它能够记录 Copilot 的输入输出内容、追踪上下文窗口大小变化、检测提示词压缩(compaction)事件，并以可视化时间线的方式呈现每个执行步骤，帮助开发者理解和优化 Copilot 的行为。
+**Context Viewer** 是一个 VS Code 扩展，用于实时监控和调试 GitHub Copilot Agent 的执行过程。它能够记录 Copilot 的输入输出内容、追踪上下文窗口大小变化、检测提示词压缩(compaction)事件，并以可视化时间线的方式呈现每个执行步骤，帮助开发者理解和优化 Copilot 的行为。
 
 ### 1.1 解决的问题
 
@@ -344,7 +344,7 @@ STATISTICS
 
 ```
 状态栏右侧:
-  未录制: [🐛 Copilot Debugger]          点击开始
+  未录制: [🐛 Context Viewer]          点击开始
   录制中: [● 23 steps | 12.5K tok]       点击停止（橙色警告背景）
 ```
 
@@ -404,8 +404,11 @@ context-viewer/
 ├── tsconfig.json             # TypeScript 编译配置
 ├── .vscodeignore             # 打包排除规则
 ├── .gitignore
+├── run-tests.js              # 测试运行器（注册 vscode mock + 启动 mocha）
 ├── resources/
-│   └── icon.svg              # 活动栏图标
+│   ├── icon.svg              # 活动栏图标
+│   ├── marketplace-icon.svg  # 插件市场图标（矢量源文件）
+│   └── marketplace-icon.png  # 插件市场图标（256x256 PNG）
 ├── src/
 │   ├── extension.ts          # 扩展入口：激活、注册命令、组装组件
 │   ├── types.ts              # 核心类型定义
@@ -413,11 +416,24 @@ context-viewer/
 │   ├── interceptor.ts        # L3: 编辑器事件拦截器
 │   ├── chatParticipant.ts    # L1: @debug Chat Participant 代理
 │   ├── logWatcher.ts         # L2: Copilot 日志文件监控
-│   └── views/
-│       ├── sessionTreeProvider.ts  # Sessions 视图
-│       ├── stepTreeProvider.ts     # Execution Steps 视图
-│       ├── statsTreeProvider.ts    # Statistics 视图
-│       └── detailPanel.ts         # Webview 详情面板
+│   ├── i18n.ts               # 运行时国际化（中英文双语）
+│   ├── views/
+│   │   ├── sessionTreeProvider.ts  # Sessions 视图
+│   │   ├── stepTreeProvider.ts     # Execution Steps 视图
+│   │   ├── statsTreeProvider.ts    # Statistics 视图
+│   │   └── detailPanel.ts         # Webview 详情面板
+│   └── test/                 # 单元测试（236 个测试用例）
+│       ├── mock/vscode.ts          # vscode 模块 mock
+│       ├── sessionStore.test.ts
+│       ├── interceptor.test.ts
+│       ├── logWatcher.test.ts
+│       ├── i18n.test.ts
+│       ├── types.test.ts
+│       └── views/
+│           ├── sessionTreeProvider.test.ts
+│           ├── stepTreeProvider.test.ts
+│           ├── statsTreeProvider.test.ts
+│           └── detailPanel.test.ts
 ├── out/                      # 编译输出（.js + .map）
 └── docs/
     ├── DESIGN.md             # 本文档
