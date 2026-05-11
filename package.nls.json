@@ -1,0 +1,19 @@
+{
+  "displayName": "Copilot Debugger",
+  "description": "Monitor and debug GitHub Copilot agent execution - track input/output, context size, prompt compression, and step-by-step execution",
+  "chatParticipant.debug.description": "Proxy chat participant that forwards to Copilot and logs full input/output prompts",
+  "viewsContainer.title": "Copilot Debugger",
+  "view.sessions.name": "Sessions",
+  "view.steps.name": "Execution Steps",
+  "view.stats.name": "Statistics",
+  "command.startCapture": "Copilot Debugger: Start Capture",
+  "command.stopCapture": "Copilot Debugger: Stop Capture",
+  "command.clearSessions": "Copilot Debugger: Clear All Sessions",
+  "command.exportSession": "Copilot Debugger: Export Session as JSON",
+  "command.showDetails": "Copilot Debugger: Show Step Details",
+  "command.refreshViews": "Copilot Debugger: Refresh",
+  "command.startLogWatch": "Copilot Debugger: Start Log File Monitoring",
+  "command.stopLogWatch": "Copilot Debugger: Stop Log File Monitoring",
+  "command.openDebugChat": "Copilot Debugger: Open Debug Chat",
+  "command.toggleGlobalIntercept": "Copilot Debugger: Toggle Global Intercept Mode"
+}

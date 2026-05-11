@@ -1,0 +1,147 @@
+{
+  "name": "copilot-debugger",
+  "displayName": "%displayName%",
+  "description": "%description%",
+  "version": "0.1.0",
+  "publisher": "xiaohang",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "chatParticipants": [
+      {
+        "id": "copilot-debugger.debug",
+        "fullName": "Copilot Debugger",
+        "name": "debug",
+        "description": "%chatParticipant.debug.description%",
+        "isSticky": true
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "copilot-debugger",
+          "title": "%viewsContainer.title%",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "copilot-debugger": [
+        {
+          "id": "copilotDebugger.sessions",
+          "name": "%view.sessions.name%"
+        },
+        {
+          "id": "copilotDebugger.steps",
+          "name": "%view.steps.name%"
+        },
+        {
+          "id": "copilotDebugger.stats",
+          "name": "%view.stats.name%"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "copilotDebugger.startCapture",
+        "title": "%command.startCapture%",
+        "icon": "$(record)"
+      },
+      {
+        "command": "copilotDebugger.stopCapture",
+        "title": "%command.stopCapture%",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "copilotDebugger.clearSessions",
+        "title": "%command.clearSessions%",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "copilotDebugger.exportSession",
+        "title": "%command.exportSession%",
+        "icon": "$(export)"
+      },
+      {
+        "command": "copilotDebugger.showDetails",
+        "title": "%command.showDetails%"
+      },
+      {
+        "command": "copilotDebugger.refreshViews",
+        "title": "%command.refreshViews%",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "copilotDebugger.startLogWatch",
+        "title": "%command.startLogWatch%",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "copilotDebugger.stopLogWatch",
+        "title": "%command.stopLogWatch%",
+        "icon": "$(eye-closed)"
+      },
+      {
+        "command": "copilotDebugger.openDebugChat",
+        "title": "%command.openDebugChat%",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "copilotDebugger.toggleGlobalIntercept",
+        "title": "%command.toggleGlobalIntercept%",
+        "icon": "$(radio-tower)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "copilotDebugger.openDebugChat",
+        "key": "ctrl+shift+d",
+        "mac": "cmd+shift+d"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "copilotDebugger.startCapture",
+          "when": "view == copilotDebugger.sessions && !copilotDebugger.capturing",
+          "group": "navigation"
+        },
+        {
+          "command": "copilotDebugger.stopCapture",
+          "when": "view == copilotDebugger.sessions && copilotDebugger.capturing",
+          "group": "navigation"
+        },
+        {
+          "command": "copilotDebugger.clearSessions",
+          "when": "view == copilotDebugger.sessions",
+          "group": "navigation"
+        },
+        {
+          "command": "copilotDebugger.refreshViews",
+          "when": "view == copilotDebugger.steps",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.95.0",
+    "typescript": "^5.3.0",
+    "@vscode/vsce": "^3.0.0"
+  }
+}
